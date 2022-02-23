@@ -1,0 +1,20 @@
+@import './variables.less';
+@import './resets.less';
+@import './typography.less';
+@import './mix.less';
+
+
+.normalize();
+
+body {
+    .font-defaults();
+    min-width: 1100px;
+    margin: 0;
+    overflow-x: auto;
+    color: var(--font-color);
+    font-size: 16px;
+    background-color: var(--background);
+    -webkit-font-smoothing: antialiased;
+    line-height:  var(--defalut-line-height);
+  }
+  

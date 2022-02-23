@@ -1,0 +1,35 @@
+.border(@width:1px, @shape: solid, @color:#E6E6E6, @radius :0, @rest...) {
+    position:relative;
+    &::after {
+        content:'';
+        border-radius: @radius;
+        position:absolute;
+        top:-50%;
+        right:-50%;
+        bottom:-50%;
+        left:-50%;
+        transform:scale(0.5);
+        pointer-events:none;
+        .mixin (all) {
+            border: @width @shape @color;
+        }
+        .mixin (top) {
+            border-top: @width @shape @color;
+        }
+        .mixin (right) {
+            border-right: @width @shape @color;
+        }
+        .mixin (bottom) {
+            border-bottom: @width @shape @color;
+        }
+        .mixin (left){
+            border-left : @width @shape @color;
+        }
+        .loop(@i) when (@i > 0) {
+            .loop((@i - 1));
+            .mixin(extract(@rest, @i));
+        }
+        .loop(length(@rest));
+    }
+
+}

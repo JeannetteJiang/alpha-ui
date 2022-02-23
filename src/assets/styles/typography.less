@@ -1,0 +1,144 @@
+/* 
+https://fonts.google.com/noto/specimen/Noto+Sans+SC?subset=chinese-simplified
+*/
+@font-family: 'NotoSansSC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui',
+'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+/* Thin 100 */
+@font-face {
+    font-weight: 100;
+    font-family: 'NotoSansSC';
+    font-style: normal;
+    src: local('Noto SansSC Thin'), local('NotoSansSC-Thin'),
+      url(https://stantic.ifengqun.com/front/other/NotoSansSC-Thin.otf;)
+        format('otf');
+}
+/* Light 300 */
+@font-face {
+    font-weight: 300;
+    font-family: 'NotoSansSC';
+    font-style: normal;
+    src: local('Noto SansSC Light'), local('NotoSansSC-Light'),
+      url(https://stantic.ifengqun.com/front/other/NotoSansSC-Light.otf;)
+        format('otf');
+}
+/* Regular 400 */
+@font-face {
+    font-weight: 400;
+    font-family: 'NotoSansSC';
+    font-style: normal;
+    src: local('NotoSansSC Regular'), local('NotoSansSC-Regular'),
+      url(https://stantic.ifengqun.com/front/other/NotoSansSC-Regular.otf;)
+        format('otf');
+}
+/* Medium 500 */
+@font-face {
+    font-weight: 500;
+    font-family: 'NotoSansSC';
+    font-style: normal;
+    src: local('Noto SansSC Medium'), local('NotoSansSC-Medium'),
+      url(https://stantic.ifengqun.com/front/other/NotoSansSC-Medium.otf;)
+        format('otf');
+}
+
+/* Bold 700 */
+@font-face {
+    font-weight: 700;
+    font-family: 'NotoSansSC';
+    font-style: normal;
+    src: local('Noto SansSC Bold'), local('NotoSansSC-Bold'),
+      url(https://stantic.ifengqun.com/front/other/NotoSansSC-Bold.otf;)
+        format('otf');
+}
+
+/* Black 800 */
+@font-face {
+    font-weight: 800;
+    font-family: 'NotoSansSC';
+    font-style: normal;
+    src: local('Noto SansSC Black'), local('NotoSansSC-Black'),
+      url(https://stantic.ifengqun.com/front/other/NotoSansSC-Black.otf;)
+        format('otf');
+}
+
+
+#font {
+    .settings(@size: 1em, @lh: 1.2, @fw: 400, @align: left) {
+      font-size: @size;
+      font-weight: @fw;
+      line-height: @lh;
+      text-align: @align;
+    }
+  
+    .size(@size: 1em, @fw: 400, @lh: 1.2) when (default()) {
+      font-size: @size;
+      font-weight: @fw;
+      line-height: @lh;
+    }
+    
+    .size(@type, @size: 1em, @fw: 400) when (@type = font-weight) {
+      font-size: @size;
+      font-weight: @fw;
+    }
+    
+    .size(@type, @size: 1em, @lh: 1.2) when (@type = line-height) {
+      font-size: @size;
+      line-height: @lh;
+    }
+    .size(@type; @size: 14px; @color: #333333; @lh: 1; @fw:400; @align: left) when (@type = all) {
+      font-size: @size;
+      font-weight: @fw;
+      line-height: @lh;
+      text-align: @align;
+      color: @color;
+    } 
+}
+
+
+.font-defaults() {
+    font-family: @font-family;
+}
+  
+
+// @mixin font-defaults {
+//   font-family: $font-family;
+// }
+
+// @mixin heading {
+//   @include font-defaults;
+
+//   font-size: 40px;
+//   font-weight: bold;
+// }
+
+@name:alpha;
+.@{name} {
+    &-hearder-1 {
+        .font-defaults();
+        font-weight: bold;
+        font-size: 53px;
+        line-height: @defalut-line-height;
+        color: @alpha--color-black;
+    }
+    &-h2 {
+        .font-defaults();
+        font-weight: bold;
+        font-size: 43px;
+        line-height: @defalut-line-height;
+        color: @alpha--color-black;
+    }
+    &-h3 {
+        .font-defaults();
+        font-weight: bold;
+        font-size: 27px;
+        line-height: @defalut-line-height;
+        color: @alpha--color-black;
+    }
+    &-sub-title {
+        .font-defaults();
+        font-weight: 500;
+        font-size: 20px;
+        line-height: @defalut-line-height;
+        color: @alpha--color-black;
+    }
+}
