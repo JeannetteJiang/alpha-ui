@@ -5,7 +5,7 @@ import './styles.less';
 export type Props = {
     name: string,
     size?: number,
-    color: string,
+    color?: string,
     onClick?(): void;
     className?: string,
 }

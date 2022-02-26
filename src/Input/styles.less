@@ -1,0 +1,58 @@
+@import '../assets/styles/index.less';
+
+@module-name: alpha-input;
+
+.@{module-name} {
+    display: inline-flex;
+    flex-direction: column;
+    .label {
+        font-size: 14px;
+        padding-bottom: 4px;
+        color: var(--default-font-color);
+    }
+    .box {
+        min-width: 320px;
+        position: relative;
+        input {
+            height: 40px;
+            width: 100%;
+            padding: 11.5px 30px 11.5px 10px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            font-size: 14px;
+            border: 1px solid var(--input-border);
+            color: var(--default-font-color);
+            &:hover {
+                border: 1px solid var(--input-border-hover-color);
+            }
+            &::placeholder {
+                color: var(--placeholder-color);
+            }
+            &:disabled {
+                &:hover {
+                    border: 1px solid var(--input-border);
+                }
+            }
+        }
+        .alpha-icon-icon-waring {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    .box-error {
+        input {
+            &:hover {
+                border: 1px solid var(--input-error-msg-color);
+            }
+        }
+    }
+    .error-msg {
+        div {
+            font-size: 11px;
+            line-height: 21px;
+            color: var(--input-error-msg-color);
+        }
+    }
+}
