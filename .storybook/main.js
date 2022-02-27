@@ -22,7 +22,8 @@ module.exports = {
     '@storybook/addon-measure',
     '@storybook/addon-outline',
     '@whitespace/storybook-addon-html',
-    'storybook-addon-pseudo-states'
+    'storybook-addon-pseudo-states',
+    '@storybook/addon-postcss',
     ],
     webpackFinal: async (config) => {
     config.module.rules.push({
