@@ -22,13 +22,13 @@ export default meta;
 const DefaultTemplate: Story<DropdownProps> = _ => {
     return <div>
         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', marginRight: '20px' }}>
-            <DropdownComponent<number>
+            <DropdownComponent<string>
                 onChangeItem={(e, value) => {
                     console.log(value);
                 }}
                 label='单选' 
                 searching={false}
-                options={[1, 2, 3]}            
+                options={['中华田园猫', '橘猫', '黑猫', '牛奶毛', '三花猫', '折耳猫']}            
             />
              <DropdownComponent<{
                 label: string,

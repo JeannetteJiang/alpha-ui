@@ -1,9 +1,5 @@
 import React from 'react';
 
-type Props = {
-    
-}
-
 const Text = () => {
     return (
         (node, needEllipsis) => {
