@@ -24,73 +24,76 @@ const DefaultTemplate: Story<DropdownProps> = _ => {
         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', marginRight: '20px' }}>
             <DropdownComponent<number>
                 onChangeItem={(e, value) => {
-                    console.log(e, value);
+                    console.log(value);
                 }}
-                label='标题1' 
-                searching={false} 
+                label='单选' 
+                searching={false}
                 options={[1, 2, 3]}            
             />
              <DropdownComponent<{
                 label: string,
                 value: number,
                 key: string,
+                disabled?: boolean,
             }>
                 style={{marginLeft: '100px'}}
                 onChangeItem={(e, value) => {
-                    console.log(e, value);
+                    console.log(value);
                 }}
-                label='标题2' 
+                multiple
+                label='多选:' 
                 searching={false} 
                 options={[
                     {
-                        label: '111',
+                        label: '哈密瓜',
                         value: 1,
                         key: '1',
                     },
                     {
-                        label: '222',
+                        label: '苹果',
                         value: 2,
                         key: '2',
                     },
                     {
-                        label: '111',
+                        label: '雪梨',
                         value: 3,
-                        key: '1',
+                        key: '3',
                     },
                     {
-                        label: '333',
+                        label: '香蕉',
                         value: 4,
-                        key: '2',
+                        key: '4',
                     },
                     {
-                        label: '444',
+                        label: '木瓜',
                         value: 5,
-                        key: '1',
+                        key: '5',
                     },
                     {
-                        label: '435345',
+                        label: '西瓜',
                         value: 6,
-                        key: '2',
+                        key: '6',
                     },
                     {
-                        label: '444',
+                        label: '西梅',
                         value: 7,
-                        key: '1',
+                        key: '7',
                     },
                     {
-                        label: '435345',
-                        value: 6,
-                        key: '2',
+                        label: '草莓',
+                        value: 8,
+                        key: '8',
                     },
                     {
-                        label: '444',
-                        value: 5,
-                        key: '1',
+                        label: '橘子',
+                        value: 9,
+                        key: '9',
                     },
                     {
-                        label: '435345',
-                        value: 6,
-                        key: '2',
+                        label: '蜜桃',
+                        value: 10,
+                        key: '10',
+                        disabled: true,
                     },
 
             ]}            

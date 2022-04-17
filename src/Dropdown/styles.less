@@ -4,6 +4,7 @@
 @inpt-padding-top-bottom: 11.5px;
 @dropdown-list-top: 61px;
 @input-height: 40px;
+@input-size: 14px;
 .@{module-name} {
     display: inline-flex;
     flex-direction: column;
@@ -13,7 +14,7 @@
         padding-bottom: 4px;
         color: var(--default-font-color);
     }
-    .alpha-dropdown-input {
+    .alpha-dropdown-input, .alpha-dropdown-multiple-input {
         overflow: hidden;
         // min-width: 320px;
         position: relative;
@@ -24,12 +25,13 @@
             .border(2px, solid, var(--dropdown-border-hover-color), 8px, all);
             // border: 1px solid var();
             .arrow-icon {
-                background: #104FD1;
+                background: var(--dropdown-border-hover-color);
                 svg {
-                    fill: #fff;
+                    fill: var(--color-white);
                 }
             }
         }
+        width: 320px;
         // border-radius: 4px;
         
         input {
@@ -59,7 +61,7 @@
             width: 28px;
             height: 100%;
             // background: var(--dropdown-arrows);
-            background: #F0F0F0;
+            background: var(--dropdown-background);
             right: 0px;
             top: 0px;
             border-radius: 0 4px 4px 0;
@@ -67,22 +69,62 @@
             align-items: center;
             justify-content: center;
             svg {
-                fill: #999999;
+                fill: var(--dropdown-arrows-icon);
             }
             // justify-self: hei
-        }
-        .arrow-icon-disabled {
-            background-color: #fff;
-            background: var(--dropdown-disabled);
-            svg {
-                fill: var(--dropdown-arrows-disabled-icon);
+            &.arrow-icon-disabled {
+                background: var(--dropdown-disabled);
+                svg {
+                    fill: var(--dropdown-arrows-icon);
+                    // fill: var(--dropdown-arrows-disabled-icon);
+                }
+            }
+            .upward-arrow {
+                transition: transform 0.5s;
+                // background-color: #fff;
+                // fill: var(--color-white);
             }
         }
+       
         .alpha-icon-icon-waring {
             position: absolute;
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
+        }
+    }
+    .alpha-dropdown-multiple-input {
+        // display: inline-flex;
+        display: inline-flex;
+        // align-items: c;
+        input {
+            width: 1px;
+        }
+        .alpha-list {
+            display: inline-flex;
+            flex-wrap: wrap;
+        }
+        .alpha-tag {
+            background-color: #e9e9eb;
+            display: flex;
+            height: 32px;
+            padding: 0 10px;
+            line-height: 30px;
+            font-size: 12px;
+            align-items: center;
+            justify-content: space-between;
+            // color: #409eff;
+            // border: 1px solid #d9ecff;
+            border-radius: 4px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            font-size: @input-size;
+            margin-left: 5px;
+            margin-top: 5px;
+            span {
+                margin-right: 4px;
+            }
+
         }
     }
     .box-error {
@@ -93,57 +135,65 @@
         }
     }
     .dropdown-list-box {
-        max-height: 271px;
-        overflow-y: scroll;
+        max-height: 250px;
         position: absolute;
-        top: @dropdown-list-top + 8px;
+        top: 8px;
         left: 0px;
         width: 100%;
         border-radius: 4px;
         z-index: 10;
         font-size: 14px;
+        overflow: hidden;
         .border(2px, solid, var(--dropdown-list-items-hover), 8px, all);
         .dropdown-list {
             width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            // overflow: hidden;
             .dropdown-list-items {
                 padding: 11.5px 12px;
                 box-sizing: border-box;
                 display: flex;
-                background-color: #fff;
+                background-color: var(--dropdown-list-items-backgournd);
                 justify-content: space-between;
+                cursor: pointer;
                 &:hover {
                     background: var(--dropdown-list-items-hover);
                 }
                 .dropdown-text {
-                    color: #104FD1;
+                    color: var(--alpha--color-primary-600);
+                }
+                &.dropdown-list-items-disabled {
+                    color: var(--alpha--color-gray-400);
+                    &:hover {
+                        background: transparent;
+                        cursor: not-allowed;
+                    }
                 }
             }
+            &::-webkit-scrollbar {
+                width: 4px;
+                height: 100%;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                border-radius: 2px;
+                width: 2px;
+                -webkit-box-shadow: inset 0 0 5px rgba(144,147,153,.3);
+                background: rgba(144,147,153,.3);
+            }
+            &::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 5px var(--color-white);
+                border-radius: 2px;
+                width: 2px;
+                // background: rgba(144,147,153,.3);
+            
+            }
         }
-        &::-webkit-scrollbar {
-            width: 5px;
-            height: 1px;
-        }
-        
-        &::-webkit-scrollbar-thumb {
-            border-radius: 2px;
-            width: 2px;
-            -webkit-box-shadow: inset 0 0 5px rgba(144,147,153,.3);
-            background: rgba(144,147,153,.3);
-        }
-        &::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 5px #fff;
-            border-radius: 2px;
-            width: 2px;
-            // background: rgba(144,147,153,.3);
-        
-        }
+       
     }
     
-    .upward-arrow {
-        transition: transform 0.5s;
-        // background-color: #fff;
-        fill: #fff;
-    }
+  
     .error-msg {
         div {
             font-size: 11px;
