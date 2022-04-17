@@ -1,0 +1,175 @@
+@import '../assets/styles/index.less';
+
+@module-name: alpha-dropdown;
+@inpt-padding-top-bottom: 11.5px;
+@dropdown-list-top: 61px;
+@input-height: 40px;
+.@{module-name} {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    .label {
+        font-size: 14px;
+        padding-bottom: 4px;
+        color: var(--default-font-color);
+    }
+    .alpha-dropdown-input {
+        overflow: hidden;
+        // min-width: 320px;
+        position: relative;
+        // border: 1px solid var(--dropdown-border);
+        .border(2px, solid, var(--dropdown-border), 8px, all);
+
+        &.hover {
+            .border(2px, solid, var(--dropdown-border-hover-color), 8px, all);
+            // border: 1px solid var();
+            .arrow-icon {
+                background: #104FD1;
+                svg {
+                    fill: #fff;
+                }
+            }
+        }
+        // border-radius: 4px;
+        
+        input {
+            height: @input-height;
+            width: 100%;
+            padding: @inpt-padding-top-bottom 30px @inpt-padding-top-bottom 10px;
+            box-sizing: border-box;
+            font-size: 14px;
+            // border: 1px solid var(--dropdown-border);
+            border: 0 none;
+            color: var(--default-font-color);
+           
+            &::placeholder {
+                color: var(--placeholder-color);
+            }
+            &:disabled {
+                background: var(--dropdown-background);
+                color: var(--dropdown-disabled);
+                border: 1px solid var(--dropdown-arrows-disabled-icon);
+                // &:hover {
+                //     border: 1px solid var(--dropdown-border);
+                // }
+            }
+        }
+        .arrow-icon {
+            position: absolute;
+            width: 28px;
+            height: 100%;
+            // background: var(--dropdown-arrows);
+            background: #F0F0F0;
+            right: 0px;
+            top: 0px;
+            border-radius: 0 4px 4px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg {
+                fill: #999999;
+            }
+            // justify-self: hei
+        }
+        .arrow-icon-disabled {
+            background-color: #fff;
+            background: var(--dropdown-disabled);
+            svg {
+                fill: var(--dropdown-arrows-disabled-icon);
+            }
+        }
+        .alpha-icon-icon-waring {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    .box-error {
+        input {
+            &:hover {
+                border: 1px solid var(--dropdown-error-msg-color);
+            }
+        }
+    }
+    .dropdown-list-box {
+        max-height: 271px;
+        overflow-y: scroll;
+        position: absolute;
+        top: @dropdown-list-top + 8px;
+        left: 0px;
+        width: 100%;
+        border-radius: 4px;
+        z-index: 10;
+        font-size: 14px;
+        .border(2px, solid, var(--dropdown-list-items-hover), 8px, all);
+        .dropdown-list {
+            width: 100%;
+            .dropdown-list-items {
+                padding: 11.5px 12px;
+                box-sizing: border-box;
+                display: flex;
+                background-color: #fff;
+                justify-content: space-between;
+                &:hover {
+                    background: var(--dropdown-list-items-hover);
+                }
+                .dropdown-text {
+                    color: #104FD1;
+                }
+            }
+        }
+        &::-webkit-scrollbar {
+            width: 5px;
+            height: 1px;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            border-radius: 2px;
+            width: 2px;
+            -webkit-box-shadow: inset 0 0 5px rgba(144,147,153,.3);
+            background: rgba(144,147,153,.3);
+        }
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 5px #fff;
+            border-radius: 2px;
+            width: 2px;
+            // background: rgba(144,147,153,.3);
+        
+        }
+    }
+    
+    .upward-arrow {
+        transition: transform 0.5s;
+        // background-color: #fff;
+        fill: #fff;
+    }
+    .error-msg {
+        div {
+            font-size: 11px;
+            line-height: 21px;
+            color: var(--dropdown-error-msg-color);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+          opacity: 0;
+          display: none;
+        }
+      
+        to {
+          opacity: 1;
+          display: block;
+        }
+      }
+      
+      .fade-in-down {
+        animation-name: fadeIn;
+        animation-duration: 0.5s;
+      }
+      .fade-in-out {
+        //   height: 0;
+        display: none;
+      }
+}

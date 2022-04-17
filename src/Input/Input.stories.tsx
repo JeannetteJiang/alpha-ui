@@ -40,16 +40,3 @@ const DefaultTemplate: Story<InputProps> = _ => {
 };
 
 export const Input = DefaultTemplate.bind({});
-
-// PrimaryButton.args = {
-//     disabled: true
-// };
-
-
-// const PrimaryTemplate: Story<ButtonProps> = args => <Button {...args} >Primary Button</Button>;
-
-// export const PrimaryButton = DefaultTemplate.bind({
-//     // type: ''
-// });
-
-// PrimaryButton.args = {};

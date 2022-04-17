@@ -6,25 +6,26 @@ export type Props = {
     name: string,
     size?: number,
     color?: string,
+    style?: {[key: string]: string},
     onClick?(): void;
     className?: string,
 }
 
 const prefix = 'alpha-icon'
-const Icon = ({ name = '', size = 14, color = '#333333', onClick, className }: Props) => {
+const Icon = ({ name = '', size = 14, color = '', style = {}, onClick, className }: Props) => {
     const prefixCls = classnames(
         { ['iconfont']: true },
         { [prefix]: true },
         { [`${prefix}-${name}`]: true },
         className,
     );
-    const styles = {
+    const styles = Object.assign({
         fontSize: size,
         width: size,
         height: size,
         fill: color
         // verticalAlign: 'middle',
-    }
+    }, style)
 
     if (onClick instanceof Function) {
         return <svg

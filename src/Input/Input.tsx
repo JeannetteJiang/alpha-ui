@@ -59,7 +59,7 @@ const Input: FC<Props> = ({ className, disabled = false, label = '', placeholder
 
     return <div className={prefixCls}>
         {label && <div className='label'>{label}</div>}
-        <div className={`box ${isError ? 'box-error': ''}`}>
+        <div className={`box ${isError ? 'box-error' : ''}`}>
             <input onChange={handleChange} disabled={disabled} placeholder={placeholder} {...rest}></input>
             {ERROR_ICON}
         </div>
