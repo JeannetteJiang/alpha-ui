@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import RadioComponent, { Props as RadioProps } from "./index";
+import RadioComponent, { RadioProps } from "./index";
 
 const meta: Meta = {
     title: 'Radio',
@@ -21,8 +21,9 @@ export default meta;
 
 const DefaultTemplate: Story<RadioProps> = _ => {
     return <div>
-        <RadioComponent />            
+        <RadioComponent disabled value={1} key={1} className={''}>123</RadioComponent>            
+        <RadioComponent value={2} key={2} className={''}>456</RadioComponent>            
     </div>
 };
 
-export const Input = DefaultTemplate.bind({});
+export const Radio = DefaultTemplate.bind({});

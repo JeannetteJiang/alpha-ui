@@ -152,7 +152,6 @@ function Dropdown<VT extends SelectValue = SelectValue>(props: Props<VT>) {
     }
 
     const handleSelectItem = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, options: VT) => {
-        console.log('options: ', options);
         if (multiple) {
             let _multipleList = multipleList;
             if (!(handleisIncludesTagsList(options))) {
@@ -160,7 +159,6 @@ function Dropdown<VT extends SelectValue = SelectValue>(props: Props<VT>) {
             } else {
                 _multipleList = handleRemoveMultipleTagItem(options);
             }
-            console.log('_multipleList: ', _multipleList);
             setMultipleList([..._multipleList]);
             onChangeItem(e, _multipleList);
         } else {
