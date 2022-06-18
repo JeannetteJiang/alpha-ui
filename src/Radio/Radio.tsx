@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import classnames from 'classnames';
+import { RadioGroupContext } from '../RadioGroup/context';
 import './styles.less';
 
 export interface AbstractCheckboxProps<T> {
@@ -43,29 +44,64 @@ export interface Props {
     name?: string;
     className?: string;
     disabled?: boolean;
-    onChange?: (e: RadioChangeEvent) => void;
     children?: React.ReactNode;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const prefix = 'alpha-radio';
 const Radio = (props: Props) => {
     const { disabled = false, value, name, className, children } = props;
-    const prefixCls = useMemo(() => {
+    console.log('value: ', value);
+    const inputRef = useRef<any>();
+    const groupContext = React.useContext(RadioGroupContext);
+    const classes = useMemo(() => {
         return classnames(
             { [prefix]: true },
             className,
         );;
     }, []);
-    return <label className={prefixCls}>
-        {/* {children !== undefined ? <span>{children}</span> : null} */}
-        <input disabled={disabled} className='radio-input' id='radio' name={name} type="radio" value={1} onChange={(e) => {
-            console.log(e.target.value);
-        }} />
+
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        props.onChange?.(e);
+        groupContext?.onChange?.(e);
+    };
+
+    const _value = useMemo(() => {
+        if (groupContext?.value) {
+            return groupContext.value ?? value;
+        }
+        return value;
+    }, [groupContext?.value, value])
+
+    const _name = useMemo(() => {
+        if (groupContext?.name) {
+            return groupContext.name;
+        }
+        return name;
+    }, [groupContext?.name, name])
+    
+
+    const hanleClickRadio = () => {
+        inputRef.current.checked = true;
+    }
+
+    return <div className={classes} onClick={hanleClickRadio}>
+        <input
+            type="radio"
+            className='radio-input'
+            ref={inputRef} 
+            value={value}
+            disabled={disabled}
+            name={_name}
+            checked={_value === value} 
+            onChange={onChange}
+        />
         <label className='radio-label' htmlFor='radio'>
-            {/* <span className="out-span"><span className="inner-span"></span></span> */}
             {children !== undefined ? <span>{children}</span> : null}
         </label>
-    </label>
+    </div>
 }
 
-export default Radio;
+Radio.displayName = 'Radio'
+
+export default React.memo(React.forwardRef(Radio));

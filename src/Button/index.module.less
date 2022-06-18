@@ -1,5 +1,6 @@
 @import '../assets/styles/index.less';
 @module-name: alpha-button;
+
 .@{module-name} {
     padding: 8px 20px;
     border: 0 none;
@@ -8,78 +9,99 @@
     box-sizing: border-box;
     border-radius: 4px;
     cursor: pointer;
+    outline: none;
+
+    &:focus {
+        outline: 0;
+    }
 
     &-primary {
         background: var(--primary-button);
         color: var(--color-white);
+
         &:hover {
             background: var(--primary-button-hover);
         }
+
         &:focus {
             .border(2px, solid, var(--primary-button-border-color), 8px, all);
             background: var(--primary-button-focused);
         }
+
         &:disabled {
             color: var(--primary-button-disabled-color);
             background: var(--primary-button-disabled);
             cursor: not-allowed;
-            pointer-events:none;
+            pointer-events: none;
         }
+
         .text {
             margin-right: 13px;
         }
     }
+
     &-ghost {
         background: var(--ghost-button);
         color: var(--ghost-button-color);
+
         &:hover {
             background: var(--ghost-button-hover);
         }
+
         &:focus {
             .border(2px, solid, var(--ghost-button-border-color), 8px, all);
         }
+
         &:disabled {
             color: var(--primary-button-disabled-color);
             // background: var(--primary-button-disabled);
             cursor: not-allowed;
-            pointer-events:none;
+            pointer-events: none;
         }
     }
+
     &-outlined {
         color: var(--outlined-button-color);
         background: var(--outlined-button);
         .border(2px, solid, var(--outlined-button-border-color), 8px, all);
+
         &:hover {
             background: var(--outlined-button-hover);
             color: var(--outlined-button-hover-color);
         }
+
         &:focus {
             .border(2px, solid, var(--outlined-button-focus-border-color), 8px, all);
             background: var(--outlined-button-focus);
             color: var(--outlined-button-focus-color);
         }
+
         &:disabled {
             color: var(--outlined-button-disabled-color);
             .border(2px, solid, var(--outlined-button-disabled-border-color), 8px, all) !important;
             cursor: not-allowed;
-            pointer-events:none;
+            pointer-events: none;
         }
     }
+
     &-danger {
         background: var(--danger-button);
         color: var(--danger-button-color);
+
         &:hover {
             background: var(--danger-button-hover);
         }
+
         &:focus {
             .border(2px, solid, var(--danger-button-border-color), 8px, all);
         }
+
         &:disabled {
             color: var(--danger-button-disabled-color);
             background: var(--danger-button-disabled);
             cursor: not-allowed;
-            pointer-events:none;
+            pointer-events: none;
         }
     }
-    
+
 }

@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, ReactChild, useState, useMemo, useCallback, memo, useRef, useEffect } from 'react';
+import React, { HTMLAttributes, ReactChild, useState, useMemo, useRef, useEffect } from 'react';
 import Icon from '../Icon';
 import classnames from 'classnames';
 import './styles.less';

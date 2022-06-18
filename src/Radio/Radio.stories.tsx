@@ -21,8 +21,8 @@ export default meta;
 
 const DefaultTemplate: Story<RadioProps> = _ => {
     return <div>
-        <RadioComponent disabled value={1} key={1} className={''}>123</RadioComponent>            
-        <RadioComponent value={2} key={2} className={''}>456</RadioComponent>            
+        <RadioComponent disabled value={1} key={1} >123</RadioComponent>            
+        <RadioComponent value={2} key={2}>456</RadioComponent>            
     </div>
 };
 
