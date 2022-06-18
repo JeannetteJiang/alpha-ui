@@ -53,7 +53,7 @@ export interface Props {
 
 const prefix = 'alpha-radio-group';
 const RadioGroup = (props: Props) => {
-    const { disabled = false, value, name, className, options, children, defalutValue ,onChange } = props;
+    const { disabled = false, value, name, className, options, defalutValue ,onChange, children } = props;
     const prefixCls = useMemo(() => {
         return classnames(
             { [prefix]: true },
@@ -63,9 +63,7 @@ const RadioGroup = (props: Props) => {
 
     const renderView = useMemo(() => {
         if (options?.length > 0) {
-            return options.map((item) => {
-                return <Radio value={item}></Radio>
-            })
+            return options.map((item) => <Radio value={item}></Radio>)
         }
         return children
     }, [options]);
@@ -82,8 +80,9 @@ const RadioGroup = (props: Props) => {
         <RadioGroupContextProvider 
             value={{
                 name,
-                onChange: handleChangeRadio,
                 value: _value,
+                disabled,
+                onChange: handleChangeRadio,
         }}>
             {renderView}
         </RadioGroupContextProvider>
