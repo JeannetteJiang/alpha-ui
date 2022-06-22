@@ -1,12 +1,6 @@
-import React, { createContext } from 'react';
+import React from 'react';
+import { RadioGroupContextProps } from '../types/Radio';
 
-interface RadioGroupContextProps {
-    name: string;
-    value: any;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    disabled: boolean;
-}
-
-export const RadioGroupContext = createContext<RadioGroupContextProps | null>(null);
+export const RadioGroupContext = React.createContext<RadioGroupContextProps | null>(null);
 
 export const RadioGroupContextProvider = RadioGroupContext.Provider;

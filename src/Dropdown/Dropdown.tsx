@@ -105,7 +105,7 @@ function Dropdown<VT extends SelectValue = SelectValue>(props: Props<VT>) {
 
 
 
-    const prefixCls = useMemo(() => {
+    const classes = useMemo(() => {
         return classnames(
             { [prefix]: true },
             className,
@@ -309,7 +309,7 @@ function Dropdown<VT extends SelectValue = SelectValue>(props: Props<VT>) {
     
 
 
-    return <div className={prefixCls} style={style}  ref={alphaDropDownRef}>
+    return <div className={classes} style={style}  ref={alphaDropDownRef}>
         {label && <div className='label'>{label}</div>}
         {/* ${true ? 'box-error' : ''}  */}
         {multiple ? InputMultipleView : InputView}

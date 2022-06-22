@@ -5,18 +5,20 @@
  * @param obj Object
  * @returns Object
  */
-export const omit = <Key extends keyof T, T = {}>(key: Key | Key[] = [], obj: T) => {
-    let o :T;
-    if (key instanceof Array) {
-        const keys = Object.keys(obj);
-        for (let i = 0; i < key.length; i++) {
-            const k: Key = key[i];
-            if (!keys.includes(String(k))) {
-                o[k] = obj[k]; 
-            }
-        }
-        return o;
-    }
-    const { [key]: omitted, ...rest } = obj;
-    return rest;
+export const omit = <Key extends keyof T, T = {}>(keys: Key | Key[] = [], obj: T) => {
+  let o = {};
+  if (keys instanceof Array) {
+    Object.keys(obj).forEach((_key: string, index) => {
+      const _k: string = String(_key);
+      if (!((keys as string[]).includes(_k))) {
+        o[_k] = obj[_k];
+      }
+    })
+    return o;
+  }
+  const { [keys]: omitted, ...rest } = obj;
+  return rest;
 }
+
+
+export const getPrefix = (name: string) => 'alpha-' + name; 
