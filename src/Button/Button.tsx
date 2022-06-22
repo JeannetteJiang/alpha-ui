@@ -22,7 +22,7 @@ export interface Props extends HTMLAttributes<HTMLButtonElement> {
 }
 const prefix = 'alpha-button';
 const Button: FC<Props> = ({ type = ButtonEnum.primary, className = '', children = '', size = 14, disabled = false, bold = 400, useIcon = '' }) => {
-    const prefixCls = classnames(
+    const classes = classnames(
         { [prefix]: true },
         {
             [`${prefix}-${type}`]: true,
@@ -30,7 +30,7 @@ const Button: FC<Props> = ({ type = ButtonEnum.primary, className = '', children
         className,
     );
     const IconDom = (useIcon && <Icon name="down-arrow" size={13} color={disabled ? '#999999' : '#fff'} />)
-    return <button className={prefixCls} disabled={disabled}>
+    return <button className={classes} disabled={disabled}>
         <Text className={useIcon ? 'text' : '' } size={size} bold={bold}>{children}</Text>
         {IconDom}
     </button>

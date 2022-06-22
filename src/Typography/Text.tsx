@@ -9,7 +9,7 @@ export type Props = {
 }
 const prefix = 'alpha-prefix';
 const Text = ({ size = 14, bold = 400, className, children }: Props) => {
-    const prefixCls = classnames(
+    const classes = classnames(
         { [styles[prefix]]: true },
         className,
     );
@@ -18,7 +18,7 @@ const Text = ({ size = 14, bold = 400, className, children }: Props) => {
         fontWeight: bold
     }
     return (
-       <span style={styleObject} className={prefixCls} >{children}</span>
+       <span style={styleObject} className={classes} >{children}</span>
     );
 };
 Text.displayName = 'Text';

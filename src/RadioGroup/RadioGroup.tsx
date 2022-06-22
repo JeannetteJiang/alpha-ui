@@ -1,93 +1,58 @@
 import React, { useMemo, useState } from 'react';
 import classnames from 'classnames';
-import Radio from '../Radio';
+import Radio  from '../Radio';
 import { RadioGroupContextProvider } from './context';
+import type { RadioGroupsProps, RadioOptionType } from '../types/Radio';
+import { getPrefix } from '../utils';
 import './styles.less';
 
-export interface AbstractCheckboxProps<T> {
-    prefixCls?: string;
-    className?: string;
-    defaultChecked?: boolean;
-    checked?: boolean;
-    style?: React.CSSProperties;
-    disabled?: boolean;
-    onChange?: (e: T) => void;
-    onClick?: React.MouseEventHandler<HTMLElement>;
-    onMouseEnter?: React.MouseEventHandler<HTMLElement>;
-    onMouseLeave?: React.MouseEventHandler<HTMLElement>;
-    onKeyPress?: React.KeyboardEventHandler<HTMLElement>;
-    onKeyDown?: React.KeyboardEventHandler<HTMLElement>;
-    value?: any;
-    tabIndex?: number;
-    name?: string;
-    children?: React.ReactNode;
-    id?: string;
-    autoFocus?: boolean;
-    type?: string;
-    skipGroup?: boolean;
-}
+const prefix = getPrefix('radio-group');
 
-export type RadioProps = AbstractCheckboxProps<RadioChangeEvent>;
+function RadioGroup<T extends string | number | RadioOptionType>(props: RadioGroupsProps<T>): React.ReactElement {
+  const { disabled = false, value, name, className, options, defalutValue = '', onChange, children } = props;
+  const [radioValue, setRadioValue] = useState<string>(String(defalutValue));
+  const classes = useMemo(() => {
+    return classnames(
+      { [prefix]: true },
+      className,
+    );;
+  }, []);
 
-export interface RadioChangeEventTarget extends RadioProps {
-    checked: boolean;
-}
+  const renderView = useMemo(() => {
+    if (options?.length > 0) {
+      const ops = options[0];
+      if (typeof ops === 'string' || typeof ops === 'number') {
+        return options.map((item, index) => <Radio checked={radioValue === String(item)} name={props.name} value={item} key={index}>{item}</Radio>)
+      } 
+      if (ops instanceof Object) {
+        return options.map((item: any , index) => <Radio checked={radioValue === String(item.value)} value={item.value} name={props.name} {...item} key={index}>{(item as RadioOptionType).label}</Radio>)
+      }
+      return null;
+    }
+    return children
+  }, [options]);
 
-export interface RadioChangeEvent {
-    target: RadioChangeEventTarget;
-    stopPropagation: () => void;
-    preventDefault: () => void;
-    nativeEvent: MouseEvent;
-}
+  const handleChangeRadio = e => {
+    if (e.value !==radioValue) {  setRadioValue(e.value)}
+    onChange(e);
+  };
 
-export interface Props {
-    defalutValue?: any;
-    name: string;
-    value?: string | number;
-    options?: string[],
-    className?: string;
-    disabled?: boolean;
-    children?: React.ReactNode;
-    onChange?: (e: any) => void;
-}
-
-const prefix = 'alpha-radio-group';
-const RadioGroup = (props: Props) => {
-    const { disabled = false, value, name, className, options, defalutValue ,onChange, children } = props;
-    const prefixCls = useMemo(() => {
-        return classnames(
-            { [prefix]: true },
-            className,
-        );;
-    }, []);
-
-    const renderView = useMemo(() => {
-        if (options?.length > 0) {
-            return options.map((item) => <Radio value={item}></Radio>)
-        }
-        return children
-    }, [options]);
-
-    const handleChangeRadio = e => {
-        onChange(e.target.value);
-    };
-
-    const _value = useMemo(() => {
-        return !value ? defalutValue ?? value : value;
-    }, [value, defalutValue])
-
-    return <div className={prefixCls}>
-        <RadioGroupContextProvider 
-            value={{
-                name,
-                value: _value,
-                disabled,
-                onChange: handleChangeRadio,
-        }}>
-            {renderView}
-        </RadioGroupContextProvider>
-    </div>
+  return <div className={classes}>
+    <RadioGroupContextProvider
+      value={{
+        name,
+        value: radioValue,
+        disabled,
+        onChange: handleChangeRadio,
+      }}>
+      {renderView}
+    </RadioGroupContextProvider>
+  </div>
 }
 RadioGroup.displayName = 'RadioGroup';
 
-export default RadioGroup;
+export default React.memo(RadioGroup);
+
+export {
+  RadioGroupsProps
+}

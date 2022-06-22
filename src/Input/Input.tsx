@@ -47,7 +47,7 @@ const Input: FC<Props> = ({ className, disabled = false, label = '', placeholder
         return rulesMessage?.length > 0;
     }, [rulesMessage])
 
-    const prefixCls = useMemo(() => {
+    const classes = useMemo(() => {
         return classnames(
             { [prefix]: true },
             className,
@@ -57,7 +57,7 @@ const Input: FC<Props> = ({ className, disabled = false, label = '', placeholder
     const ERROR_ICON = (isError && <Icon color='#E21925' name='icon-waring' size={18} />)
 
 
-    return <div className={prefixCls}>
+    return <div className={classes}>
         {label && <div className='label'>{label}</div>}
         <div className={`box ${isError ? 'box-error' : ''}`}>
             <input onChange={handleChange} disabled={disabled} placeholder={placeholder} {...rest}></input>

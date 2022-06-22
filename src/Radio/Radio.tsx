@@ -1,107 +1,87 @@
 import React, { useMemo, useRef } from 'react';
 import classnames from 'classnames';
 import { RadioGroupContext } from '../RadioGroup/context';
-import { omit } from '../utils/index'; 
+import type { RadioProps, RadioOptionType, RadioChangeEvent } from '../types/Radio';
+import { getPrefix, omit } from '../utils/index';
 import './styles.less';
 
-// export interface AbstractCheckboxProps<T> {
-//     prefixCls?: string;
-//     className?: string;
-//     defaultChecked?: boolean;
-//     checked?: boolean;
-//     style?: React.CSSProperties;
-//     disabled?: boolean;
-//     onChange?: (e: T) => void;
-//     onClick?: React.MouseEventHandler<HTMLElement>;
-//     onMouseEnter?: React.MouseEventHandler<HTMLElement>;
-//     onMouseLeave?: React.MouseEventHandler<HTMLElement>;
-//     onKeyPress?: React.KeyboardEventHandler<HTMLElement>;
-//     onKeyDown?: React.KeyboardEventHandler<HTMLElement>;
-//     value?: any;
-//     tabIndex?: number;
-//     name?: string;
-//     children?: React.ReactNode;
-//     id?: string;
-//     autoFocus?: boolean;
-//     type?: string;
-//     skipGroup?: boolean;
-//   }
 
-// export type RadioProps = AbstractCheckboxProps<RadioChangeEvent>;
+const prefix = getPrefix('radio');
 
-// export interface RadioChangeEventTarget extends RadioProps {
-//     checked: boolean;
-//   }
-  
-// export interface RadioChangeEvent {
-//     target: RadioChangeEventTarget;
-//     stopPropagation: () => void;
-//     preventDefault: () => void;
-//     nativeEvent: MouseEvent;
-// }
+function Radio<T extends number | string | RadioOptionType, P = RadioProps<T>>(props: RadioProps) {
+  const { value, className, children } = props;
+  const inputRef = useRef<any>();
+  const groupContext = React.useContext(RadioGroupContext);
 
-export interface Props {
-    value: string | number;
-    name?: string;
-    className?: string;
-    disabled?: boolean;
-    children?: React.ReactNode;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
-}
+  const classes = useMemo(() => {
+    return classnames(
+      { [prefix]: true },
+      className,
+    );;
+  }, []);
 
-const prefix = 'alpha-radio';
-const Radio = (props: Props) => {
-    const { value, className, children } = props;
-    const inputRef = useRef<any>();
-    const groupContext = React.useContext(RadioGroupContext);
+  const _value = useMemo(() => {
+    if (groupContext?.value) {
+      return groupContext.value ?? value;
+    }
+    return value;
+  }, [groupContext?.value, value])
 
-    const classes = useMemo(() => {
-        return classnames(
-            { [prefix]: true },
-            className,
-        );;
-    }, []);
+  const _props = useMemo(() => {
+    if (groupContext) {
+      return {
+        name: groupContext.name,
+        disabled: props?.disabled || false,
+        value: props.value,
+        id: props.id,
+      } as RadioProps
+    }
+    return omit(['id', 'onChange'], { ...props, disabled: props?.disabled || false }) as RadioProps;
+  }, [groupContext, props]);
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.onChange?.(e);
-        groupContext?.onChange?.(e);
-    };
 
-    const _value = useMemo(() => {
-        if (groupContext?.value) {
-            return groupContext.value ?? value;
-        }
-        return value;
-    }, [groupContext?.value, value])
-
-    const _props = useMemo(() => {
-        if (groupContext) {
-            return {
-                name: groupContext.name,
-                disabled: groupContext.disabled,
-                value: groupContext.value
-            } 
-        }
-        return omit(['value'], props)
-    }, [groupContext, props])
-
-    const hanleClickRadio = () => {
-        inputRef.current.checked = true;
+  const hanleClickRadio = (e) => {
+    if (groupContext?.disabled || props.disabled) return;
+    const _currnet = inputRef.current;
+    // inputRef.current.event.persist()
+    const event = {
+      originalEvent: e,
+      value: props.value,
+      checked: _currnet.checked,
+      stopPropagation: () => { },
+      preventDefault: () => { },
+      target: {
+        id: props.id,
+        name: props.name,
+        value: props.value,
+        checked: _currnet.checked
+      }
     }
 
-    return <div className={classes} onClick={hanleClickRadio}>
-        <input
-            type="radio"
-            className='radio-input'
-            ref={inputRef}
-            checked={_value === value} 
-            onChange={onChange}
-            {..._props}
-        />
-        <label className='radio-label' htmlFor='radio'>
-            {children !== undefined ? <span>{ children }</span> : null}
-        </label>
-    </div>
+    if(groupContext) {
+      if (groupContext.value !== Number(_currnet.getAttribute('data-value'))) {
+        _currnet.checked = !_currnet.checked;
+        return groupContext.onChange(event)
+      }
+      return
+    }
+    _currnet.checked = !_currnet.checked;
+    return props.onChange(event)
+  }
+  return <div className={classes} onClick={hanleClickRadio}  data-value={_props.value}>
+      <input
+        type="radio"
+        className='radio-input p-hidden-accessible'
+        ref={inputRef}
+        checked={_props.checked}
+        disabled={_props.disabled}
+        name={_props.name}
+        data-value={_props.value}
+      />
+    <label className='radio-label' htmlFor='radio'>
+      {children !== undefined ? <span>{children}</span> : null}
+    </label>
+  </div>
 }
 
 Radio.displayName = 'Radio'

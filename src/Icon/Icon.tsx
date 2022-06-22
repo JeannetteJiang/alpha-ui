@@ -13,7 +13,7 @@ export type Props = {
 
 const prefix = 'alpha-icon'
 const Icon = ({ name = '', size = 14, color = '', style = {}, onClick, className }: Props) => {
-    const prefixCls = classnames(
+    const classes = classnames(
         { ['iconfont']: true },
         { [prefix]: true },
         { [`${prefix}-${name}`]: true },
@@ -30,7 +30,7 @@ const Icon = ({ name = '', size = 14, color = '', style = {}, onClick, className
     if (onClick instanceof Function) {
         return <svg
             onClick={onClick}
-            className={prefixCls}
+            className={classes}
             aria-hidden="true"
             style={styles}
         >
@@ -39,7 +39,7 @@ const Icon = ({ name = '', size = 14, color = '', style = {}, onClick, className
     }
 
     return <svg
-        className={prefixCls}
+        className={classes}
         aria-hidden="true"
         style={styles}
     >
