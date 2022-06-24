@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { getPrefix } from '../utils/index';
 import './iconfont.js';
 import './styles.less';
 export type Props = {
@@ -11,7 +12,8 @@ export type Props = {
     className?: string,
 }
 
-const prefix = 'alpha-icon'
+const prefix = getPrefix('icon');
+
 const Icon = ({ name = '', size = 14, color = '', style = {}, onClick, className }: Props) => {
     const classes = classnames(
         { ['iconfont']: true },
@@ -24,7 +26,6 @@ const Icon = ({ name = '', size = 14, color = '', style = {}, onClick, className
         width: size,
         height: size,
         fill: color
-        // verticalAlign: 'middle',
     }, style)
 
     if (onClick instanceof Function) {

@@ -5,7 +5,7 @@ import RadioComponent from '../Radio';
 import { RadioChangeEvent, RadioOptionType } from '../types/Radio';
 
 const meta: Meta = {
-    title: 'RadioGroup',
+    title: 'Form Components',
     component: RadioGroupComponent,
     argTypes: {
         children: {
@@ -21,7 +21,7 @@ const meta: Meta = {
 
 export default meta;
 
-const DefaultTemplate: Story<RadioGroupsProps> = _ => {
+const DefaultTemplate: Story<RadioGroupsProps<any>> = _ => {
     const [value, setValue] = useState<string>('Orange');
     const [value1, setValue1] = useState<string>('Orange');
     const [value2, setValue2] = useState<string>('Orange');
@@ -74,4 +74,4 @@ const DefaultTemplate: Story<RadioGroupsProps> = _ => {
     </div>
 };
 
-export const Radio = DefaultTemplate.bind({});
+export const RadioGroup = DefaultTemplate.bind({});

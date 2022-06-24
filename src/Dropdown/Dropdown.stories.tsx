@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import DropdownComponent, { DropdownProps } from "./index";
 
 const meta: Meta = {
-    title: 'Dropdown',
+    title: 'Form Components',
     component: DropdownComponent,
     argTypes: {
         children: {
@@ -108,4 +108,4 @@ const DefaultTemplate: Story<DropdownProps> = _ => {
     </div>
 };
 
-export const Input = DefaultTemplate.bind({});
+export const Dropdown = DefaultTemplate.bind({});

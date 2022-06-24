@@ -62,7 +62,7 @@ const DefaultTemplate: Story<ButtonProps> = _ => {
     </div>
 };
 
-export const PrimaryButton = DefaultTemplate.bind({});
+export const AllButton = DefaultTemplate.bind({});
 
 // PrimaryButton.args = {
 //     disabled: true
