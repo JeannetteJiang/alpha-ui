@@ -4,7 +4,7 @@ import RadioComponent, { RadioProps } from "./index";
 import { useState } from 'react';
 
 const meta: Meta = {
-    title: 'Radio',
+    title: 'Form Components',
     component: RadioComponent,
     argTypes: {
         children: {

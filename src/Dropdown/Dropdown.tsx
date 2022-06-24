@@ -272,14 +272,14 @@ function Dropdown<VT extends SelectValue = SelectValue>(props: Props<VT>) {
                                 </div>
                             </div>))
                         }
+                         <input
+                            ref={inputRef}
+                            value={String(currentValue) ?? ''}
+                            disabled={disabled}
+                            placeholder={placeholder}
+                            {...rest}
+                        />
                     </div>
-                    <input
-                        ref={inputRef}
-                        value={String(currentValue) ?? ''}
-                        disabled={disabled}
-                        placeholder={placeholder}
-                        {...rest}
-                    />
                 </div>
                 <div className={prefixArrowsCls}>
                     {ARROW_ICON}
