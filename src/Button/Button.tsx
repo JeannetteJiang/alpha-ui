@@ -34,7 +34,7 @@ const Button: FC<Props> = ({ type = ButtonEnum.primary, className = '', children
       if (useIcon) {
         return useIcon
       }
-      return <Icon name="down-arrow" size={13} color={disabled ? '#999999' : '#fff'} />
+      return useIcon && <Icon name="down-arrow" size={13} color={disabled ? '#999999' : '#fff'} />
     }, [useIcon])
     return <button className={classes} disabled={disabled} onClick={onClick}>
         {children && <Text className={useIcon ? 'text' : '' } size={size} bold={bold}>{children}</Text> }
