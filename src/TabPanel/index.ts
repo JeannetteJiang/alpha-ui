@@ -1,0 +1,1 @@
+export { default, TabPanel ,TabProps, TabPanelProps, TabMenuProps } from './Tab';

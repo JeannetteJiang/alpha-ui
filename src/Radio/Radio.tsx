@@ -20,12 +20,6 @@ function Radio<T extends number | string | RadioOptionType, P = RadioProps<T>>(p
     );;
   }, []);
 
-  const _value = useMemo(() => {
-    if (groupContext?.value) {
-      return groupContext.value ?? value;
-    }
-    return value;
-  }, [groupContext?.value, value])
 
   const _props = useMemo(() => {
     if (groupContext) {

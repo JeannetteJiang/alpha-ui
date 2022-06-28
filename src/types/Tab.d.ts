@@ -1,6 +1,6 @@
 interface Datas {
     label: string,
-    id?: number,
+    id?: number | string,
     icon?: string,
     url?: string;
     disabled?: boolean;
@@ -17,5 +17,25 @@ export interface TabMenuProps {
     id?: number;
     className?: string;
     activiedIndex?: number;
+    scrollable?: boolean;
     onTabChange?(e: TabMenuChangeEvent): void;
 }
+
+
+export interface TabPanelProps {
+
+}
+
+
+export interface TabProps {
+  children: React.ReactNode;
+  scrollable?: boolean;
+  activiedIndex?: number;
+  onTabChange?(e: TabMenuChangeEvent): void;
+}
+
+
+export interface TabPanelProps extends Datas {
+  children: React.ReactNode;
+}
+
