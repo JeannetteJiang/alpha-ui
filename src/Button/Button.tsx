@@ -19,9 +19,10 @@ export interface Props extends HTMLAttributes<HTMLButtonElement> {
     size?: number,
     bold?: number,
     disabled?: boolean,
+    onClick?: () => void;
 }
 const prefix = 'alpha-button';
-const Button: FC<Props> = ({ type = ButtonEnum.primary, className = '', children = '', size = 14, disabled = false, bold = 400, useIcon = '' }) => {
+const Button: FC<Props> = ({ type = ButtonEnum.primary, className = '', children = '', size = 14, disabled = false, bold = 400, useIcon = '', onClick }) => {
     const classes = classnames(
         { [prefix]: true },
         {
@@ -35,7 +36,7 @@ const Button: FC<Props> = ({ type = ButtonEnum.primary, className = '', children
       }
       return <Icon name="down-arrow" size={13} color={disabled ? '#999999' : '#fff'} />
     }, [useIcon])
-    return <button className={classes} disabled={disabled}>
+    return <button className={classes} disabled={disabled} onClick={onClick}>
         {children && <Text className={useIcon ? 'text' : '' } size={size} bold={bold}>{children}</Text> }
         {IconDom}
     </button>

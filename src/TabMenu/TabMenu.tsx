@@ -19,7 +19,8 @@ const TabMenu = (props: TabMenuProps) => {
   const contentRef = React.useRef(null);
   const prevBtnRef = React.useRef(null);
   const nextBtnRef = React.useRef(null);
-
+  const [leftIsDisabledState, setBackwardIsDisabledState] = React.useState(true);
+  const [rightIsDisabledState, setForwardIsDisabledState] = React.useState(false);
 
   const classes = classnames(
     { [prefix]: true },
@@ -59,36 +60,43 @@ const TabMenu = (props: TabMenuProps) => {
 
 
   const TabMemuItem = (_menuItem: Item, _index: number) => {
-    console.log('_index: ', _index);
-    if (_index) {
       const content = getContent(_menuItem, _index)
       return <li ref={(el) => tabsRef.current[`tab_${_index}`] = el} id={'tab-menu-item' + _index} className='tab-menu-item' key={_index}>
         {content}
       </li>
-    }
   }
 
   const _data = useMemo(() => {
     return data.map(TabMemuItem)
   }, [data, tabsRef, _acTive, props])
 
-  const handleScroll = () => {
-
+  const handleScroll = (event) => {
+    props.scrollable && updateButtonState();
+    event.preventDefault();
   }
+
+  
+  const updateButtonState = () => {
+    const { scrollLeft, scrollWidth } = contentRef.current;
+    
+    const width = DomHandler.getWidth(contentRef.current);
+    setBackwardIsDisabledState(scrollLeft === 0);
+    setForwardIsDisabledState(scrollLeft === scrollWidth - width);
+}
 
     
   const getVisibleButtonWidths = () => {
     return [prevBtnRef.current, nextBtnRef.current].reduce((acc, el) => el ? acc + DomHandler.getWidth(el) : acc, 0);
   }
 
-  const handleLeft = () => {
+  const handleRight = () => {
     const width = DomHandler.getWidth(contentRef.current) - getVisibleButtonWidths();
     const pos = contentRef.current.scrollLeft + width;
     const lastPos = contentRef.current.scrollWidth - width;
     contentRef.current.scrollLeft = pos >= lastPos ? lastPos : pos;
   }
 
-  const handleRight = () => {
+  const handleLeft = () => {
     const width = DomHandler.getWidth(contentRef.current) - getVisibleButtonWidths();
     const pos = contentRef.current.scrollLeft - width;
     contentRef.current.scrollLeft = pos <= 0 ? 0 : pos;
@@ -97,14 +105,14 @@ const TabMenu = (props: TabMenuProps) => {
 
 
   return <div className={classes}>
-    { scrollable && <Button useIcon={<Icon size={15} color={'#fff'} name='arrow-left-bold'/>} onClick={handleLeft} /> }
-    <div className={getPrefix('tab-menu')}>
-      <ul className={getPrefix('tab-menu-ul')} onScroll={handleScroll}>
+    { scrollable && !leftIsDisabledState && <Button  useIcon={<Icon size={15} color={'#fff'} name='arrow-left-bold'/>} onClick={handleLeft} /> }
+    <div ref={contentRef} className={getPrefix('tab-menu')} onScroll={handleScroll}>
+      <ul className={getPrefix('tab-menu-ul')} >
         {_data}
         <li ref={underlineRef} className={getPrefix('tab-menu-under-line')}></li>
       </ul>
     </div>
-    { scrollable && <Button useIcon={<Icon size={15} color={'#fff'} name='arrow-right-bold'/>} onClick={handleRight} /> }
+    { scrollable && !rightIsDisabledState && <Button useIcon={<Icon size={15} color={'#fff'} name='arrow-right-bold'/>} onClick={handleRight} /> }
   </div>
 }
 

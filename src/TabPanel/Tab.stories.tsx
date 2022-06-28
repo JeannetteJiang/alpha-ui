@@ -21,6 +21,9 @@ export default meta;
 
 const DefaultTemplate: Story<TabPanelProps> = _ => {
   return <div>
+    <div style={{margin: '20px 0 '}}>
+      <h2>默认: </h2>  
+    </div>
     <TabComponent  activiedIndex={0} onTabChange={() => {}}>
       <TabPanel label="Tab 1" id={1} icon={'kafei'}>
         Content of Tab Pane 1
@@ -32,8 +35,8 @@ const DefaultTemplate: Story<TabPanelProps> = _ => {
         Content of Tab Pane 3
       </TabPanel>
     </TabComponent>
-    <div>
-      Scroll
+    <div style={{margin: '20px 0 '}}>
+      <h2>Scrollable可滚动的: </h2>  
     </div>
     <TabComponent onTabChange={() => {}} scrollable={true}>
       {[...Array.from({ length: 30 }, (_, i) => i)].map(i => (

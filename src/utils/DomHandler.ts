@@ -1,5 +1,8 @@
 export default class DomHandler {
-
+    public calculatedScrollbarWidth = 0;
+    static calculatedScrollbarWidth: any;
+    static browser: any;
+    static style: string;
     static innerWidth(el) {
         if (el) {
             let width = el.offsetWidth;
@@ -23,11 +26,11 @@ export default class DomHandler {
     }
 
     static getBrowserLanguage() {
-        return navigator.userLanguage
+        return (navigator as unknown as { userLanguage: string }).userLanguage
             || (navigator.languages && navigator.languages.length && navigator.languages[0])
             || navigator.language
-            || navigator.browserLanguage
-            || navigator.systemLanguage
+            || (navigator as unknown as { browserLanguage: string }).browserLanguage
+            || (navigator as unknown as { systemLanguage: string }).systemLanguage
             || 'en';
     }
 
@@ -41,7 +44,7 @@ export default class DomHandler {
         return (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     }
 
-    static getOuterWidth(el, margin) {
+    static getOuterWidth(el: HTMLElement, margin?: string | number): number {
         if (el) {
             let width = el.offsetWidth || el.getBoundingClientRect().width;
 
@@ -55,7 +58,7 @@ export default class DomHandler {
         return 0;
     }
 
-    static getOuterHeight(el, margin) {
+    static getOuterHeight(el: HTMLElement, margin?: number | string): number {
         if (el) {
             let height = el.offsetHeight || el.getBoundingClientRect().height;
 
@@ -248,7 +251,7 @@ export default class DomHandler {
 
     static absolutePosition(element, target) {
         if (element) {
-            let elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element)
+            let elementDimensions: { height: number, width: number } = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element)
             let elementOuterHeight = elementDimensions.height;
             let elementOuterWidth = elementDimensions.width;
             let targetOuterHeight = target.offsetHeight;
@@ -327,7 +330,7 @@ export default class DomHandler {
             const viewport = this.getViewport();
             const myArr = my.split(' ');
             const atArr = at.split(' ');
-            const getPositionValue = (arr, isOffset) => (isOffset ? (+arr.substring(arr.search(/(\+|-)/g)) || 0) : (arr.substring(0, arr.search(/(\+|-)/g)) || arr));
+            const getPositionValue: any = (arr, isOffset) => (isOffset ? (+arr.substring(arr.search(/(\+|-)/g)) || 0) : (arr.substring(0, arr.search(/(\+|-)/g)) || arr));
             const position = {
                 my: {
                     x: getPositionValue(myArr[0]),
@@ -556,7 +559,7 @@ export default class DomHandler {
     }
 
     static getHiddenElementDimensions(element) {
-        let dimensions = {};
+        let dimensions: { width: number, height: number } = { width: 0, height: 0 };
         if (element) {
             element.style.visibility = 'hidden';
             element.style.display = 'block';
@@ -620,7 +623,7 @@ export default class DomHandler {
     }
 
     static isTouchDevice() {
-        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+        return (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || ((navigator as unknown as { msMaxTouchPoints: number}).msMaxTouchPoints > 0));
     }
 
     static isFunction(obj) {
@@ -758,7 +761,7 @@ export default class DomHandler {
     }
 
     static getFocusableElements(element, selector = '') {
-        let focusableElements = DomHandler.find(element, `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        let focusableElements: any = DomHandler.find(element, `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
                 [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
                 input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
                 select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
@@ -844,12 +847,12 @@ export default class DomHandler {
         );
     }
 
-    static applyStyle(element, style) {
+    static applyStyle(element: HTMLElement, style) {
         if (typeof style === 'string') {
             element.style.cssText = this.style;
         }
         else {
-            for (let prop in this.style) {
+            for (let prop in (this as any).style) {
                 element.style[prop] = style[prop];
             }
         }
@@ -859,9 +862,8 @@ export default class DomHandler {
         let blob = new Blob([csv], {
             type: 'application/csv;charset=utf-8;'
         });
-
-        if (window.navigator.msSaveOrOpenBlob) {
-            navigator.msSaveOrOpenBlob(blob, filename + '.csv');
+        if ((window.navigator as any).msSaveOrOpenBlob) {
+            (navigator as any).msSaveOrOpenBlob(blob, filename + '.csv');
         }
         else {
             const isDownloaded = DomHandler.saveAs({ name: filename + '.csv', src: URL.createObjectURL(blob) });
