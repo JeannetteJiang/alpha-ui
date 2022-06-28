@@ -1,0 +1,102 @@
+@module-name: alpha-tab;
+@line-width: 2px;
+
+@keyframes move {
+  from {
+    width: 0%;
+    left: 50%;
+  }
+  to {
+    width: 100%
+  }
+}
+.@{module-name} {
+  &-menu-container {
+    display: flex;
+    .alpha-icon {
+      font-size: 30px;
+    }
+  }
+  &-menu {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-scroll-chaining: contain auto;
+    overscroll-behavior: contain auto;
+    position: relative;
+    scrollbar-width: none;
+    -ms-scroll-chaining: contain auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &-ul {
+      display: flex;
+      flex: 1 1 auto;
+      color: #1A1A1A;
+      padding: 0px;
+      border-bottom: 1px solid #CCCCCC;
+      margin: 0;
+     
+    }
+    .tab-menu-item {
+      font-size: 16px;
+      height: 100%;
+      box-sizing: border-box;
+      padding-right: 16px;
+      &::nth-child {
+        padding-right: 0px;
+      }
+      .tab-menu-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 24px;
+        // padding: 1.25rem;
+        white-space: nowrap;
+        text-decoration: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        background-color: rgba(0, 0, 0, 0);
+  
+        .alpha-icon {
+          margin-right: 5px;
+        }
+        &:focus {
+          border: 2px solid #A8C3FC;
+        }
+        &:hover {
+          background-color: #DFE9FF;
+          transition: background-color 0.2s;
+        }
+        &.disabled {
+          color: #999999;
+          background-color: rgba(0, 0, 0, 0);
+        }
+        &.active {
+          background-color: #DFE9FF;
+          &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: @line-width;
+            background-color: #104FD1;
+            bottom: -1px;
+            left: 0px;
+            animation: move 0.2s;
+          }
+        }
+      }
+  
+      &:last-child {
+        .tab-menu-link {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+.alpha-tab-menu {
+ 
+}

@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, ReactChild, ReactNode } from 'react';
+import React, { FC, HTMLAttributes, ReactChild, ReactNode, useMemo } from 'react';
 import Typography from '../Typography';
 import Icon from '../Icon';
 import classnames from 'classnames';
@@ -29,9 +29,14 @@ const Button: FC<Props> = ({ type = ButtonEnum.primary, className = '', children
         },
         className,
     );
-    const IconDom = (useIcon && <Icon name="down-arrow" size={13} color={disabled ? '#999999' : '#fff'} />)
+    const IconDom = useMemo(() => {
+      if (useIcon) {
+        return useIcon
+      }
+      return <Icon name="down-arrow" size={13} color={disabled ? '#999999' : '#fff'} />
+    }, [useIcon])
     return <button className={classes} disabled={disabled}>
-        <Text className={useIcon ? 'text' : '' } size={size} bold={bold}>{children}</Text>
+        {children && <Text className={useIcon ? 'text' : '' } size={size} bold={bold}>{children}</Text> }
         {IconDom}
     </button>
 };
