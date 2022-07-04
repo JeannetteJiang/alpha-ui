@@ -1,0 +1,53 @@
+@import '../assets/styles/index.less';
+@module-name: alpha;
+
+.@{module-name} {
+  &-tag {
+    padding: 4.5px 8px;
+    display: inline-flex;
+    border-radius: 50px;
+    font-size: 11px;
+    color: #1A1A1A;
+    > div {
+      display: flex;
+      align-items: center;
+
+    }
+    &-primary {
+      background-color:#DFE9FF;
+      .dots {
+        background-color: #104FD1;
+      }
+    }
+    &-warning {
+      background-color:#F7E9CB;
+      .dots {
+        background-color: #E39012;
+      }
+    }
+    &-stop {
+      background-color: #CCCCCC;
+      .dots {
+        background-color: #4D4D4D;
+      }
+    }
+    &-error {
+      background-color: #FCE4E8;
+      .dots {
+        background-color: #E21925;
+      }
+    }
+    &-success {
+      background-color: #E5F5E6;
+      .dots {
+        background-color: #2EAF3B;
+      }
+    }
+    .dots {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+  }
+}
