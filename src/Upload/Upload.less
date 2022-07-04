@@ -1,0 +1,53 @@
+.alpha {
+  &-upload {
+    
+  }
+
+  &-button-upload-container {
+
+  }
+
+  &-drag-upload-container {
+    border: 1px dashed #CCCCCC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 24px;
+    flex-direction: column;
+    cursor: pointer;
+    .maintext {
+      font-size: 16px;
+    }
+    .subtext {
+      font-size: 14px;
+      color: #999999;
+    }
+    &.large {
+      width: 546px;
+      height: 184px;
+    }
+    &.small {
+      width: 184px;
+      height: 184px;
+      box-sizing: border-box;
+      padding: 0px 22px;
+      text-align: center;
+      line-height: 1.2;
+      .maintext {
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+      .uploadfailed {
+        margin-bottom: 4px;
+      }
+    }
+    .uploading {
+
+    }
+    .uploadfailed {
+      font-size: 16px;
+      color: #E21925;
+    }
+    
+  }
+}
